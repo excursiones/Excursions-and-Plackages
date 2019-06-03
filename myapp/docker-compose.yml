@@ -1,11 +1,13 @@
 version: '2'
+volumes:
+   myapp:
 services:
   myapp:
+    volumes:
+     - myapp:/app
     image: 'bitnami/codeigniter:3'
     ports:
       - '8000:8000'
-    volumes:
-      - 'myapp:/app'
     depends_on:
       - mariadb
   mariadb:
