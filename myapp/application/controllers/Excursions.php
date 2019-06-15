@@ -25,7 +25,7 @@
                 $id = $this->excursions_model->create($data);
                 $data['id'] = $id;
 
-                return jsonify($data);
+                echo json_encode($data);
             }
         }
 
@@ -45,7 +45,7 @@
                 $data['state'] = $_PUT['state'];
                 $data['id'] = $excursionId;
                 $this->excursions_model->edit($data);
-                return jsonify($data);
+                echo json_encode($data);
             }
 
         }
@@ -57,7 +57,7 @@
             if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
                 $data_real = $this->get_by_id($excursionId);
                 $this->excursions_model->delete($excursionId);
-                return jsonify($data_real);
+                echo json_encode($data_real);
             }
         }
 
