@@ -34,6 +34,8 @@
               array_push($data_to_insert, $id);
             }
             $query = $this->db->query($sql,$data_to_insert);
+
+            return $id;
         }
 
         public function edit($data)

@@ -21,6 +21,9 @@
               $data['photo_path'],
               $data['duration']
             ));
+
+            $id = $this->db->insert_id();
+            return $id;
         }
 
         public function edit($data)

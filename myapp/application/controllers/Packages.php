@@ -19,7 +19,9 @@
                 $data['name'] = $_POST['name'];
                 $data['price'] = $_POST['price'];
                 $data['excursions'] = $_POST['excursions'];
-                $this->packages_model->create($data);
+                $id_package = $this->packages_model->create($data);
+                $data['id'] = $id_package;
+                return jsonify($data);
             }
         }
 
@@ -35,6 +37,7 @@
                 $data['state'] = $_PUT['state'];
                 $data['id'] = $packageId;
                 $this->packages_model->edit($data);
+                return jsonfiy($data);
             }
         }
 
@@ -42,8 +45,10 @@
         {
             $this->load->model('packages_model');
 
-            if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+            if ($_SERVER['REQUEST_METHOD'] == 'DELETE'){
+                $data_real = $this->get_by_id($packageId);
                 $this->packages_model->delete($packageId);
+                return jsonify($data_real);
             }
         }
 

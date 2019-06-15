@@ -22,7 +22,10 @@
                 $data['description'] = $_POST['description'];
                 $data['photo_path'] = $_POST['photo_path'];
                 $data['duration'] = $_POST['duration'];
-                $this->excursions_model->create($data);
+                $id = $this->excursions_model->create($data);
+                $data['id'] = $id;
+
+                return jsonify($data);
             }
         }
 
@@ -42,7 +45,9 @@
                 $data['state'] = $_PUT['state'];
                 $data['id'] = $excursionId;
                 $this->excursions_model->edit($data);
+                return jsonify($data);
             }
+
         }
 
         public function delete($excursionId)
@@ -50,7 +55,9 @@
             $this->load->model('excursions_model');
 
             if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+                $data_real = $this->get_by_id($excursionId);
                 $this->excursions_model->delete($excursionId);
+                return jsonify($data_real);
             }
         }
 
