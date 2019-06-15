@@ -12,7 +12,10 @@
         {
             $this->load->model('excursions_model');
 
-            if (!empty($_POST)) {
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $_POST = file_get_contents('php://input');
+                $_POST = json_decode($_POST, true);
+
                 $data['name'] = $_POST['name'];
                 $data['price'] = $_POST['price'];
                 $data['location'] = $_POST['location'];
@@ -23,7 +26,7 @@
             }
         }
 
-        public function edit()
+        public function edit($excursionId)
         {
             $this->load->model('excursions_model');
 
@@ -37,19 +40,17 @@
                 $data['photo_path'] = $_PUT['photo_path'];
                 $data['duration'] = $_PUT['duration'];
                 $data['state'] = $_PUT['state'];
-                $data['id'] = $_PUT['id'];
+                $data['id'] = $excursionId;
                 $this->excursions_model->edit($data);
             }
         }
 
-        public function delete()
+        public function delete($excursionId)
         {
             $this->load->model('excursions_model');
 
             if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
-                $_DELETE = file_get_contents('php://input');
-                $_DELETE = json_decode($_DELETE, true);
-                $this->excursions_model->delete($_DELETE['id']);
+                $this->excursions_model->delete($excursionId);
             }
         }
 
@@ -60,10 +61,10 @@
             echo json_encode($data);
         }
 
-        public function get_by_id()
+        public function get_by_id($excursionId)
         {
             $this->load->model('excursions_model');
-            $data = $this->excursions_model->get_by_id($_GET['id']);
+            $data = $this->excursions_model->get_by_id($excursionId);
             echo json_encode($data);
         }
 

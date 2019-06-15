@@ -12,7 +12,10 @@
         {
             $this->load->model('packages_model');
 
-            if (!empty($_POST)) {
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $_POST = file_get_contents('php://input');
+                $_POST = json_decode($_POST, true);
+
                 $data['name'] = $_POST['name'];
                 $data['price'] = $_POST['price'];
                 $data['excursions'] = $_POST['excursions'];
@@ -20,7 +23,7 @@
             }
         }
 
-        public function edit()
+        public function edit($packageId)
         {
             $this->load->model('packages_model');
 
@@ -30,19 +33,17 @@
                 $data['name'] = $_PUT['name'];
                 $data['price'] = $_PUT['price'];
                 $data['state'] = $_PUT['state'];
-                $data['id'] = $_PUT['id'];
+                $data['id'] = $packageId;
                 $this->packages_model->edit($data);
             }
         }
 
-        public function delete()
+        public function delete($packageId)
         {
             $this->load->model('packages_model');
 
             if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
-                $_DELETE = file_get_contents('php://input');
-                $_DELETE = json_decode($_DELETE, true);
-                $this->packages_model->delete($_DELETE['id']);
+                $this->packages_model->delete($packageId);
             }
         }
 
@@ -53,10 +54,10 @@
             echo json_encode($data);
         }
 
-        public function get_by_id()
+        public function get_by_id($packageId)
         {
             $this->load->model('packages_model');
-            $data = $this->packages_model->get_by_id($_GET['id']);
+            $data = $this->packages_model->get_by_id($packageId);
             echo json_encode($data);
         }
 
