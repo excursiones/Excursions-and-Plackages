@@ -59,7 +59,7 @@
             $sql = "DELETE FROM
                     excursions WHERE id=?";
             $query = $this->db->query($sql, array($id));
-            return $data;
+            return $data[0];
         }
 
         public function get()
@@ -75,7 +75,7 @@
             $sql = "SELECT * FROM excursions WHERE id = ?";
             $query = $this->db->query($sql, array($id));
             $data = $query->result_array();
-            return $data;
+            return $data[0];
         }
 
         public function get_by_duration($maximum_duration)

@@ -64,7 +64,7 @@
             $sql = "DELETE FROM
                     packages WHERE id=?";
             $query = $this->db->query($sql, array($id));
-            return $data;
+            return $data[0];
         }
 
         public function get()
@@ -83,7 +83,7 @@
                     WHERE id_packages = ?";
             $query = $this->db->query($sql, array($id));
             $data = $query->result_array();
-            return $data;
+            return $data[0];
         }
 
         public function get_by_price($maximum_price)
