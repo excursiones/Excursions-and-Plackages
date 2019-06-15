@@ -51,9 +51,15 @@
 
         public function delete($id)
         {
+
+            $sql = "SELECT * FROM excursions WHERE id = ?";
+            $query = $this->db->query($sql, array($id));
+            $data = $query->result_array();
+
             $sql = "DELETE FROM
                     excursions WHERE id=?";
             $query = $this->db->query($sql, array($id));
+            return $data;
         }
 
         public function get()

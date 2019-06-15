@@ -46,9 +46,8 @@
             $this->load->model('packages_model');
 
             if ($_SERVER['REQUEST_METHOD'] == 'DELETE'){
-                $data_real = $this->get_by_id($packageId);
-                $this->packages_model->delete($packageId);
-                echo json_encode($data_real);
+                $data = $this->packages_model->delete($packageId);
+                echo json_encode($data);
             }
         }
 

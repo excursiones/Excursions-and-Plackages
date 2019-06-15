@@ -55,9 +55,8 @@
             $this->load->model('excursions_model');
 
             if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
-                $data_real = $this->get_by_id($excursionId);
-                $this->excursions_model->delete($excursionId);
-                echo json_encode($data_real);
+                $data = $this->excursions_model->delete($excursionId);
+                echo json_encode($data);
             }
         }
 
